@@ -3,9 +3,9 @@
 
 #### 安装依赖扩展
 
-- composer install  opentracing/opentracing:1.0.0-beta5 -vvv
-- composer install jukylin/jaeger-php:^6.3.4 -vvv
-- composer install eeliu/php_simple_aop:v0.2.4 -vvv
+- composer require  opentracing/opentracing:1.0.0-beta5 -vvv
+- composer require jukylin/jaeger-php:^6.3.4 -vvv
+- composer require eeliu/php_simple_aop:v0.2.4 -vvv
 
 ------
 
