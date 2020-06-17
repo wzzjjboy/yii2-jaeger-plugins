@@ -30,7 +30,7 @@ class RedisPlugin extends Candy
         $this->writeEndInfo($ret);
     }
 
-    public function onException($e){
+    public function onException(\Throwable $e){
         $this->writeExceptionInfo($e);
     }
 }

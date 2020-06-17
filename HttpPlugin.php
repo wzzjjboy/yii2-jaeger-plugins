@@ -35,7 +35,7 @@ class HttpPlugin extends Candy
         $this->scope->close();
     }
 
-    public function onException($e){
+    public function onException(\Throwable $e){
         $this->writeExceptionInfo($e);
     }
 }
