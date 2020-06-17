@@ -27,20 +27,22 @@ class TracerManager
     public function __construct()
     {
         $config = Config::getInstance();
-        $yConfig = Yii::$app->params['jaeger'] ?: [];
-        $config->setSampler(new SwooleProbabilisticSampler($this->getIp(), $yConfig['http_port'], $yConfig['jaeger_rate']));
-        $mode = $yConfig['jaeger_mode'] ?? 1;
-        if ($mode == 1) {
-            $config->setTransport(new JaegerTransportUdp($yConfig['jaeger_server_host'], 8000));
-        } elseif ($mode == 2) {
-            $config->setTransport(new JaegerTransportLog(4000));
-        } else {
-            throw new \Exception("jaeger's mode is not set");
+        $yConfig = Yii::$app->params['jaeger'] ?? [];
+        if ($yConfig){
+            $config->setSampler(new SwooleProbabilisticSampler($this->getIp(), $yConfig['http_port'], $yConfig['jaeger_rate']));
+            $mode = $yConfig['jaeger_mode'] ?? 1;
+            if ($mode == 1) {
+                $config->setTransport(new JaegerTransportUdp($yConfig['jaeger_server_host'], 8000));
+            } elseif ($mode == 2) {
+                $config->setTransport(new JaegerTransportLog(4000));
+            } else {
+                throw new \Exception("jaeger's mode is not set");
+            }
+            $tracer = $config->initTracer($yConfig['jaeger_pname']);
+            $tracer->gen128bit();
+            GlobalTracer::set($tracer); // optional
+            $this->configs = $config;
         }
-        $tracer = $config->initTracer($yConfig['jaeger_pname']);
-        $tracer->gen128bit();
-        GlobalTracer::set($tracer); // optional
-        $this->configs = $config;
     }
 
     public function setServerSpan(Span $span)

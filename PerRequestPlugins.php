@@ -56,7 +56,7 @@ class PerRequestPlugins extends Candy
 //        pr(__METHOD__);
     }
 
-    function onException($e)
+    function onException(\Throwable $e)
     {
 //        pr(__METHOD__);
     }
