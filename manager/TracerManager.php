@@ -81,15 +81,15 @@ class TracerManager
 
     private function getIp()
     {
-        $result = shell_exec("/sbin/ifconfig");
-        if (preg_match_all("/inet (\d+\.\d+\.\d+\.\d+)/", $result, $match) !== 0)  // 这里根据你机器的具体情况， 可能要对“inet ”进行调整， 如“addr:”，看如下注释掉的if
-        {
-            foreach ($match [0] as $k => $v) {
-                if ($match [1] [$k] != "127.0.0.1") {
-                    return $match[1][$k];
-                }
-            }
-        }
+//        $result = shell_exec("/sbin/ifconfig");
+//        if (preg_match_all("/inet (\d+\.\d+\.\d+\.\d+)/", $result, $match) !== 0)  // 这里根据你机器的具体情况， 可能要对“inet ”进行调整， 如“addr:”，看如下注释掉的if
+//        {
+//            foreach ($match [0] as $k => $v) {
+//                if ($match [1] [$k] != "127.0.0.1") {
+//                    return $match[1][$k];
+//                }
+//            }
+//        }
         return '127.0.0.1';
     }
 }
