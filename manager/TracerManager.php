@@ -29,7 +29,7 @@ class TracerManager
         $config = Config::getInstance();
         $yConfig = Yii::$app->params['jaeger'] ?? [];
         if ($yConfig){
-            $config->setSampler(new SwooleProbabilisticSampler($this->getIp(), $yConfig['http_port'], $yConfig['jaeger_rate']));
+            $config->setSampler(new SwooleProbabilisticSampler($this->getIp(), $yConfig['http_port'] ?: '80', $yConfig['jaeger_rate']));
             $mode = $yConfig['jaeger_mode'] ?? 1;
             if ($mode == 1) {
                 $config->setTransport(new JaegerTransportUdp($yConfig['jaeger_server_host'], 8000));
