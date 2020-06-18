@@ -66,6 +66,12 @@ class PerRequestPlugins extends Candy
         if (!$this->isOpen()){
             return true;
         }
+        if ($request = Yii::$app->request){
+            list($route) = $request->resolve();
+            if (empty($route)){
+                return true;
+            }
+        }
         $tm = TracerManager::instance();
         $headers = Yii::$app->getResponse() instanceof  Response ? Yii::$app->getResponse()->getHeaders()->toArray() : [];
         if (isset($headers[Constants\Tracer_State_Header_Name])) {
