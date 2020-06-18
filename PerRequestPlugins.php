@@ -66,6 +66,7 @@ class PerRequestPlugins extends Candy
         if (!$this->isOpen()){
             return true;
         }
+
         if ($request = Yii::$app->request){
             list($route) = $request->resolve();
             if (empty($route)){
